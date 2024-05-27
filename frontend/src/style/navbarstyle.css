@@ -1,0 +1,24 @@
+.navbar{
+  height: 5vh;
+}
+
+.underline {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 8px;
+    width: 0;
+    height: 2px;
+    background-color: black;
+    transition: width 0.3s ease;
+  }
+  
+  .underline:hover::after {
+    width: 100%;
+  }
