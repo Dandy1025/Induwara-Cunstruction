@@ -1,9 +1,8 @@
 .background {
     position: relative;
-    height: 100vh;
+    min-height: 100vh; /* Use min-height instead of height */
     width: 100%;
-    margin-right: 100;
-    overflow: hidden;
+    overflow: auto; /* Allow scrolling if content overflows */
 }
 
 .background::before {
@@ -23,23 +22,24 @@
 
 .hr-line {
     height: 3px;
-    width: 90%;
+    width: 100%;
     background-color: black;
     border: none;
+    margin: auto; /* Center the hr line */
 }
 
 .item-label {
     font-weight: 600;
-    margin-left: 50px;
+    margin-left: 20px; 
 }
 
 .item-image {
-    width: 100px; /* Adjust the width as needed */
-    height: 100px; /* Adjust the height as needed */
-    object-fit: cover; /* Ensure the image covers the entire area */
-  }
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
 
-.item-img:hover {
+.item-image:hover {
     transform: scale(1.1);
     transition: transform 0.5s ease;
 }
@@ -67,4 +67,9 @@
 .quantity-display {
     min-width: 30px;
     text-align: center;
+}
+
+.checkoutbtn {
+    margin-top: 20px;
+    text-align: right;
 }

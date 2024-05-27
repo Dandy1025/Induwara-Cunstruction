@@ -1,8 +1,11 @@
 import React from 'react'
+import "../style/paymentContent.css"
 
 function PaymentContent() {
   return (
-    <div>PaymentContent</div>
+    <div className='bg'>
+      
+    </div>
   )
 }
 

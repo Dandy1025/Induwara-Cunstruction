@@ -8,12 +8,10 @@ import CementImg from '../assets/Cement.png';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-
-
 const initialItems = [
-    { id: 1, image: DrillImg, price: 'Rs.1500.00', quantity: 1, total: 'Rs.1500.00' },
-    { id: 2, image: JackhammerImg, price: 'Rs.2000.00', quantity: 1, total: 'Rs.2000.00' },
-    { id: 3, image: CementImg, price: 'Rs.2200.00', quantity: 1, total: 'Rs.2200.00' },
+    { id: 1, image: DrillImg, name: 'Bosch Drill', price: 'Rs.1500.00', quantity: 1, total: 'Rs.1500.00' },
+    { id: 2, image: JackhammerImg, name: 'Electric Jackhammer', price: 'Rs.2000.00', quantity: 1, total: 'Rs.2000.00' },
+    { id: 3, image: CementImg, name: 'Lanva Cement', price: 'Rs.2200.00', quantity: 1, total: 'Rs.2200.00' },
 ];
 
 function Content() {
@@ -52,7 +50,7 @@ function Content() {
 
     return (
         <div className='background'>
-            <Container style={{ maxWidth: '100%', position: 'relative', zIndex: 1 }}>
+            <Container fluid style={{ position: 'relative', zIndex: 1 }}>
                 <Row>
                     <Col className="text-center">
                         <label className="fw-bold text-decoration-underline display-6">Your cart ({items.length}) Items</label>
@@ -62,15 +60,21 @@ function Content() {
                 <Row>
                     <Col><label className="item-label">Item</label></Col>
                     <Col><label className="item-label">Price</label></Col>
-                    <Col><label className="item-label">Quantity</label></Col>
+                    <Col><label className="item-label" style={{marginLeft:"148px"}}>Quantity</label></Col>
                     <Col><label className="item-label">Total</label></Col>
                 </Row>
                 <br />
                 <hr className="hr-line" />
+                <br />
                 {items.map(item => (
                     <div key={item.id}>
                         <Row>
-                            <Col><Image src={item.image} alt="ItemImg" rounded className="item-image" /></Col>
+                            <Col>
+                                <br />
+                                <Image src={item.image} alt="ItemImg" rounded className="item-image" />
+                                <br />
+                                <div>{item.name}</div>
+                            </Col>
                             <Col><label className="item-label">{item.price}</label></Col>
                             <Col>
                                 <div className="quantity-control">
@@ -90,8 +94,8 @@ function Content() {
                                     </Button>
                                 </div>
                             </Col>
-                            <Col><label className="item-label">{item.total}</label>
-
+                            <Col>
+                                <label className="item-label">{item.total}</label>
                                 <IconButton
                                     style={{ marginLeft: "30px", height: "25px", width: "30px" }}
                                     color="error"
@@ -102,26 +106,27 @@ function Content() {
                         </Row>
                         <br />
                         <hr className="hr-line" />
+                        <br />
                     </div>
                 ))}
                 <Row>
-                    <Col lg={8}>
-                        <h3 style={{ marginLeft: "100px", textAlign: 'end' }}>Grand Total : </h3>
+                    <Col lg={8} className="text-end">
+                        <h3>Grand Total :</h3>
                     </Col>
                     <Col>
-                        <h3 className='grand-total' style={{ marginLeft: "150px" }}>
+                        <h3 className="grand-total text-center" style={{marginRight:"80px"}}>
                             Rs.{calculateGrandTotal()}
                         </h3>
                     </Col>
                 </Row>
-                <Row style={{ marginLeft: "950px", marginTop: "10px" }}>
-                    <div className='checkoutbtn'>
+                <Row className=" justify-content-end mt-3" style={{marginRight:"370px", marginBottom:"10px"}}>
+                    <Col xs="auto">
                         <Link to="/paymentmethod">
-                            <Button style={{ width: "200px" }} variant="danger" size="lg">
+                            <Button variant="danger" size="lg">
                                 Checkout
-                            </Button>{' '}
+                            </Button>
                         </Link>
-                    </div>
+                    </Col>
                 </Row>
             </Container>
         </div>
