@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Link } from "react-router-dom";
 import '../style/contentstyle.css';
 import DrillImg from '../assets/Drill.jpg';
 import JackhammerImg from '../assets/Jackhammer.jpg';
