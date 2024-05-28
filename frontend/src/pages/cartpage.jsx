@@ -2,7 +2,7 @@ import React from 'react'
 import Navbar from '../component/navbar'
 import Header from '../component/header'
 import Content from '../component/content'
-import Fotter from '../component/fotter'
+import Footer from '../component/footer'
 
 function Cartpage() {
   return (
@@ -10,7 +10,7 @@ function Cartpage() {
         <Header/>
         <Navbar/>
         <Content/>
-        <Fotter/>
+        <Footer/>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../component/header'
 import Navbar from '../component/navbar'
-import Fotter from '../component/fotter'
+import Fotter from '../component/footer'
 import PaymentContent from '../component/PaymentContent'
 
 function PaymentMethodd() {
