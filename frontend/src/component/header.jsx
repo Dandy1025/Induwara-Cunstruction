@@ -10,7 +10,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const Header = () => {
   return (
-    <Container style={{ maxWidth: "100%", backgroundColor:"#9FA6B2" }}>
+    <Container style={{ maxWidth: "100%", backgroundColor:"#D9D9D9" }}>
       <Row>
         <Col xs={6} md={6} lg={2}>
           <Image style={{ height: 40, marginTop: 5, marginBottom: 5 }} src={logoImg} />
