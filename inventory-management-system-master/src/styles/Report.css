@@ -1,0 +1,22 @@
+.report-container {
+  padding: 20px;
+  background-color: #f4f6f8;
+}
+
+.report-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.MuiPaper-root {
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.MuiTabs-root {
+  margin-bottom: 20px;
+}
+
+.MuiTypography-root {
+  margin-bottom: 20px;
+}
