@@ -1,0 +1,18 @@
+.signup-form-container::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+.signup-form-container {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+}
+
+.additional-container::-webkit-scrollbar{
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+.additional-container {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+}
+

@@ -12,10 +12,15 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@iconscout/react-unicons": "^2.0.2",
     "@mui/icons-material": "^5.15.18",
     "@mui/material": "^5.15.18",
+    "@mui/x-data-grid": "^7.6.2",
+    "@rollup/plugin-alias": "^5.1.0",
     "bootstrap": "^5.3.3",
     "react": "^18.2.0",
+    "react-apexcharts": "^1.4.1",
+    "react-bootstrap": "^2.10.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1"
   },

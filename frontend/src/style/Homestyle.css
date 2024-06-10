@@ -1,0 +1,46 @@
+.fieldset-container {
+    width: 600px;
+    height: 450px;
+    background-color: #D9D9D9;
+    border-radius: 20px;
+    opacity: 0.8;
+    position: absolute;
+    top: 140px;
+    left: 40px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .button-hover-effect:hover {
+    background-color: #FF7D29; /* Change to the color you want on hover */
+    color: #fff;
+    transform: scale(1.1);
+    transition: transform 0.5s ease;
+  }
+  
+
+  @media (max-width: 992px) {
+    .fieldset-container {
+      width: 50%;
+      left: 25%;
+      top: 100px;
+      height: auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .fieldset-container {
+      width: 70%;
+      left: 15%;
+      top: 90px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .fieldset-container {
+      width: 90%; 
+      left: 5%; 
+      top: 80px;
+      padding: 10px; 
+    }
+  }

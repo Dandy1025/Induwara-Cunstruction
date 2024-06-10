@@ -8,11 +8,7 @@ function Cartpage() {
   return (
     <div>
         <Header/>
-        <br />
-        <br />
         <Navbar/>
-        <br />
-        <br />
         <Content/>
         <Footer/>
     </div>

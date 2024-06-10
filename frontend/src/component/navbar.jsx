@@ -5,7 +5,7 @@ import '../style/navbarstyle.css';
 
 function Navbar() {
     return (
-        <nav className="navbar navbar-expand-lg bg-secondary" style={{ position: 'fixed', top: '56px', width: '100%', zIndex: 1020 }}>
+        <nav className="navbar navbar-expand-lg bg-secondary" style={{ width: '100%', zIndex: 1020}}>
             <div className="container-fluid">
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
