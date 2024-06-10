@@ -1,15 +1,14 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 import "../style/paymentContent.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 
 function PaymentContent() {
   return (
     <div className="bg d-flex justify-content-center align-items-center">
-      <div className="paymentBg d-flex justify-content-center ">
+      <div className="paymentBg d-flex justify-content-center">
         <Container maxWidth="100%">
           <Row className="mb-4 text-center">
             <label className="display-6 fw-bold">Enter Your Payment Details</label>
@@ -76,8 +75,17 @@ function PaymentContent() {
               />
             </InputGroup>
           </Row>
+          <Row className="mb-3 justify-content-start" style={{marginLeft:'90px'}}>
+            <Form.Group className="d-flex align-items-center">
+              <Form.Check
+                type="checkbox"
+                label="Save card details"
+                className="text-center"
+              />
+            </Form.Group>
+          </Row>
           <Row className="justify-content-center">
-            <Button className='paybtn' style={{ width: "200px" }} variant="success">Pay Now</Button>{' '}
+            <Button className='paybtn' style={{ width: "200px" }} variant="success">Pay Now</Button>
           </Row>
         </Container>
       </div>
