@@ -1,0 +1,21 @@
+.setting-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f4f6f8;
+}
+
+.input-field,
+.select-field,
+.switch-field {
+  margin-bottom: 20px;
+}
+
+.save-button {
+  margin-top: 20px;
+}
+
+.save-button:hover {
+  background-color: #cc2e00;
+}
