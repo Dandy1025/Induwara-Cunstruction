@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route, Routes } from 'react-router-dom';
 import { createRoot } from 'react-dom/client';
 import Homepage from './pages/Home';
 import PaymentMethod from './pages/PaymentMethod';
@@ -103,10 +103,5 @@ function App() {
     </ThemeProvider>
   );
 }
-
-// Replace ReactDOM.render with createRoot
-const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
-root.render(<App />);
 
 export default App;
