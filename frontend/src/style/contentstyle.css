@@ -30,7 +30,7 @@
 
 .item-label {
     font-weight: 600;
-    margin-left: 20px; 
+    margin-left: 20px;
 }
 
 .item-image {
@@ -72,4 +72,96 @@
 .checkoutbtn {
     margin-top: 20px;
     text-align: right;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .item-image {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .quantity-button {
+        padding: 5px 8px;
+    }
+    
+    .quantity-display {
+        min-width: 25px;
+    }
+}
+
+@media (max-width: 992px) {
+    .item-label {
+        font-size: 0.9rem;
+    }
+
+    .quantity-button {
+        padding: 4px 7px;
+    }
+
+    .quantity-display {
+        min-width: 20px;
+    }
+
+    .grand-total {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .item-label {
+        font-size: 0.8rem;
+        margin-left: 10px;
+    }
+
+    .item-image {
+        width: 70px;
+        height: 70px;
+    }
+
+    .quantity-button {
+        padding: 3px 6px;
+    }
+
+    .quantity-display {
+        min-width: 20px;
+    }
+
+    .grand-total {
+        font-size: 1.3rem;
+    }
+
+    .checkoutbtn {
+        text-align: center;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .item-label {
+        font-size: 0.75rem;
+        margin-left: 5px;
+    }
+
+    .item-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .quantity-button {
+        padding: 2px 5px;
+    }
+
+    .quantity-display {
+        min-width: 18px;
+    }
+
+    .grand-total {
+        font-size: 1.1rem;
+    }
+
+    .checkoutbtn {
+        text-align: center;
+        margin-top: 20px;
+    }
 }

@@ -1,0 +1,55 @@
+/* Add this to ourproject.css */
+.add-project-btn {
+    position: absolute;
+    top: 3px; /* Adjust this value as necessary */
+    right: 20px; /* Adjust this value as necessary */
+    background-color: #ff2200; /* Button background color */
+    color: white; /* Button text color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+  
+  .add-project-btn:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 1200px) {
+    .add-project-btn {
+      top: 110px; /* Adjust to align button as necessary */
+      right: 15px; /* Adjust to align button as necessary */
+      font-size: 15px;
+      padding: 9px 18px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .add-project-btn {
+      top: 105px; /* Adjust to align button as necessary */
+      right: 10px; /* Adjust to align button as necessary */
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .add-project-btn {
+      top: 100px; /* Adjust to align button as necessary */
+      right: 8px; /* Adjust to align button as necessary */
+      font-size: 13px;
+      padding: 7px 14px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .add-project-btn {
+      top: 95px; /* Adjust to align button as necessary */
+      right: 5px; /* Adjust to align button as necessary */
+      font-size: 12px;
+      padding: 6px 12px;
+    }
+  }
+  

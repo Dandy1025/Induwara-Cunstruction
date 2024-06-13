@@ -8,8 +8,6 @@ function PaymentMethod() {
   return (
     <div>
         <Header/>
-        <br />
-        <br />
         <Navbar/>
         <PaymentContent/>
         <Footer/>

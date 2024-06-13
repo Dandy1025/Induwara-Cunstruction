@@ -30,7 +30,18 @@ import Services from './pages/Services';
 import SignupCustomers from './pages/SignUpCustomer';
 import SignupEmployees from './pages/SignUpEmployee';
 import SignupSuppliers from './pages/SignUpSupplier';
-
+import AdminReview from './pages/AdminReview';
+import Employee from './pages/Employee';
+import Feedback from './pages/Feedback';
+import Notification from './pages/Notification';
+import Ongoing from './pages/Ongoing';
+import Ourproject from './pages/Ourproject';
+import Postproject from './pages/Postproject';
+import Projectindetails from './pages/Projectindetails';
+import Category from './pages/Category';
+import Complete from './pages/Complete';
+import Projectview from './pages/Projectview';
+import Renovation from './pages/Renovationfm';
 
 const theme = createTheme({
   spacing: 4,
@@ -73,6 +84,19 @@ const router = createBrowserRouter(
       <Route path='/signupEmployees' element={<SignupEmployees />} />
       <Route path='/signupSuppliers' element={<SignupSuppliers />} />
       <Route path='/supplierProfile' element={<SupplierProfile />} />
+      <Route path='/adminReview' element={<AdminReview />} />
+      <Route path='/Employee' element={<Employee />} />
+      <Route path='/Feedback' element={<Feedback />} />
+      <Route path='/Notification' element={<Notification />} />
+      <Route path='/Notification' element={<Notification />} />
+      <Route path='/category' element={<Category />} />
+      <Route path='/complete' element={<Complete />} />
+      <Route path='/ongoing' element={<Ongoing />} />
+      <Route path='/ourproject' element={<Ourproject />} />
+      <Route path='/postproject' element={<Postproject />} />
+      <Route path='/projectindetails' element={<Projectindetails />} />
+      <Route path='/projectview' element={<Projectview />} />
+      <Route path='/renovation' element={<Renovation />} />
       <Route path="/Admin" element={<RootComponent />}>
         <Route index element={<RootPage />} />
         <Route path="home" element={<Home />} />

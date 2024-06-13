@@ -51,16 +51,16 @@ function Content() {
     return (
         <div className='background'>
             <Container fluid style={{ position: 'relative', zIndex: 1 }}>
-                <Row>
-                    <Col className="text-center">
+                <Row className="text-center">
+                    <Col>
                         <label className="fw-bold text-decoration-underline display-6">Your cart ({items.length}) Items</label>
                     </Col>
                 </Row>
                 <br />
-                <Row>
+                <Row className="d-none d-md-flex">
                     <Col><label className="item-label">Item</label></Col>
                     <Col><label className="item-label">Price</label></Col>
-                    <Col><label className="item-label" style={{marginLeft:"148px"}}>Quantity</label></Col>
+                    <Col><label className="item-label text-center">Quantity</label></Col>
                     <Col><label className="item-label">Total</label></Col>
                 </Row>
                 <br />
@@ -69,15 +69,17 @@ function Content() {
                 {items.map(item => (
                     <div key={item.id}>
                         <Row>
-                            <Col>
+                            <Col xs={12} md={3} className="text-center text-md-left">
                                 <br />
                                 <Image src={item.image} alt="ItemImg" rounded className="item-image" />
                                 <br />
                                 <div>{item.name}</div>
                             </Col>
-                            <Col><label className="item-label">{item.price}</label></Col>
-                            <Col>
-                                <div className="quantity-control">
+                            <Col xs={6} md={2} className="text-center text-md-left">
+                                <label className="item-label">{item.price}</label>
+                            </Col>
+                            <Col xs={6} md={3} className="text-center">
+                                <div className="quantity-control d-flex justify-content-center">
                                     <Button
                                         className="quantity-button"
                                         onClick={() => handleDecrease(item.id)}
@@ -85,7 +87,7 @@ function Content() {
                                     >
                                         -
                                     </Button>
-                                    <span className="quantity-display">{item.quantity}</span>
+                                    <span className="quantity-display mx-2">{item.quantity}</span>
                                     <Button
                                         className="quantity-button"
                                         onClick={() => handleIncrease(item.id)}
@@ -94,7 +96,7 @@ function Content() {
                                     </Button>
                                 </div>
                             </Col>
-                            <Col>
+                            <Col xs={6} md={2} className="text-center text-md-left">
                                 <label className="item-label">{item.total}</label>
                                 <IconButton
                                     style={{ marginLeft: "30px", height: "25px", width: "30px" }}
@@ -119,7 +121,7 @@ function Content() {
                         </h3>
                     </Col>
                 </Row>
-                <Row className=" justify-content-end mt-3" style={{marginRight:"370px", marginBottom:"10px"}}>
+                <Row className="justify-content-end mt-3" style={{marginRight:"370px", marginBottom:"10px"}}>
                     <Col xs="auto">
                         <Link to="/paymentmethod">
                             <Button variant="danger" size="lg">
