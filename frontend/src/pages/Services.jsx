@@ -4,8 +4,6 @@ import Header from '../component/header';
 import { Image, Button } from 'react-bootstrap';
 import a from '../assets/Construction.jpg';
 import Navbar from '../component/navbar';
-
-
 import b from '../assets/labor icon.webp';
 import c from '../assets/Equipment.webp';
 import d from '../assets/construction material icon.png';

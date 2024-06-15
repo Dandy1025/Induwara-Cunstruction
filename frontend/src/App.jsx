@@ -1,3 +1,4 @@
+// App.jsx
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -38,10 +39,11 @@ import Ongoing from './pages/Ongoing';
 import Ourproject from './pages/Ourproject';
 import Postproject from './pages/Postproject';
 import Projectindetails from './pages/Projectindetails';
-import Category from './pages/Category';
 import Complete from './pages/Complete';
 import Projectview from './pages/Projectview';
 import Renovation from './pages/Renovationfm';
+import Category from './pages/Category';
+import Customerprofilepage from './pages/CustomerProfilepage';
 
 const theme = createTheme({
   spacing: 4,
@@ -76,7 +78,7 @@ const router = createBrowserRouter(
       <Route path="/paymentwallet" element={<PaymentWallet />} />
       <Route path="/aboutus" element={<AboutUs />} />
       <Route path='/accountSelect' element={<AccountSelect />} />
-      <Route path='/customerProfile' element={<CustomerProfile />} />
+      <Route path='/customerProfile' element={<Customerprofilepage />} />
       <Route path='/employeeProfile' element={<EmployeeProfile />} />
       <Route path='/login' element={<Login />} />
       <Route path='/services' element={<Services />} />
@@ -98,15 +100,14 @@ const router = createBrowserRouter(
       <Route path='/projectview' element={<Projectview />} />
       <Route path='/renovation' element={<Renovation />} />
       <Route path="/Admin" element={<RootComponent />}>
-        <Route index element={<RootPage />} />
-        <Route path="home" element={<Home />} />
+        <Route index element={<Home />} />
         <Route path="inventory" element={<Inventory />} />
         <Route path="orders" element={<Order />} />
         <Route path="customers" element={<Customer />} />
         <Route path="revenue" element={<Revenue />} />
         <Route path="growth" element={<Growth />} />
         <Route path="reports" element={<Report />} />
-        <Route path="settings" element={<Setting isAdmin={true} />} /> {/* Ensure isAdmin prop is passed */}
+        <Route path="settings" element={<Setting isAdmin={true} />} />
       </Route>
     </>
   )
@@ -120,7 +121,6 @@ function App() {
         <div style={{ display: 'flex' }}>
           <SideBarComponent />
           <main style={{ flexGrow: 1, padding: '16px' }}>
-            {/* Content will be rendered here */}
           </main>
         </div>
       </RouterProvider>

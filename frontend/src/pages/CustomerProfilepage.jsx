@@ -6,7 +6,7 @@ import Footer from '../component/footer';9
 import backgroundImage from '../assets/Construction.jpg';
 import '../style/SignUpCustomer.css';
 
-export default function SignUpCustomer() {
+export default function Customerprofilepage() {
   // State for form fields
   const [fullName, setFullName] = useState('');
   const [nic, setNic] = useState('');

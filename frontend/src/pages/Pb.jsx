@@ -1,5 +1,4 @@
 import React from 'react'
-
 import logoa from '../assets/a2.jpeg'
 import Header from '../component/header';
 import Navbar from '../component/navbar';

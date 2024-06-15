@@ -19,7 +19,7 @@ function Navbar() {
                             </Link>
                         </li>
                         <li className="nav-item fw-bold">
-                            <Link to={'services'}>
+                            <Link to={'/services'}>
                             <a className="nav-link underline">Services</a>
                             </Link>
                         </li>
@@ -28,16 +28,16 @@ function Navbar() {
                                 Projects
                             </a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <Link to={'/ongoingprojrct'} style={{textDecoration:'none'}}>
+                                <Link to={'/ongoing'} style={{textDecoration:'none'}}>
                                 <li><a className="dropdown-item" href="#">Ongoing Projects</a></li>
                                 </Link>
-                                <Link to={'/completeproject'} style={{textDecoration:'none'}}>
+                                <Link to={'/complete'} style={{textDecoration:'none'}}>
                                 <li><a className="dropdown-item" href="#">Completed Projects</a></li>
                                 </Link>
                             </ul>
                         </li>
                         <li className="nav-item fw-bold">
-                            <Link to={'/Employees'}>
+                            <Link to={'/Employee'}>
                             <a className="nav-link underline">Employees</a>
                             </Link>
                         </li>
