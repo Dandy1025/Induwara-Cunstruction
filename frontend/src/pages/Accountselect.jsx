@@ -13,7 +13,6 @@ import { Link } from 'react-router-dom';
 export default function Accountselect() {
   return (
     <>
-      <div><Header /></div>
       <div><Navbar /></div>
 
       <h1 style={{ textAlign: 'center', margin: '5px 0', background: '#FF7D29', color: 'white' }}>Account Selection</h1> {/* Adjust the text as needed */}

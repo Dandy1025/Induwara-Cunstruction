@@ -6,7 +6,6 @@ import Footer from '../component/footer';
 function Projectindetails() {
   return (
     <div>
-        <Header/>
         <Navbar/>
       <div style={styles.content}>
         <div style={styles.background}>

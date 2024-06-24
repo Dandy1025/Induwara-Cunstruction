@@ -8,7 +8,6 @@ import Navbar from '../component/navbar';
 export default function Services() {
   return (
     <>
-      <div><Header/></div>
       <div><Navbar/></div>
 
       <div style={{ position: 'relative' }}>

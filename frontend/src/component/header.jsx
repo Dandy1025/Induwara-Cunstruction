@@ -5,14 +5,15 @@ import logoImg from '../assets/logo.png';
 import cartImg from '../assets/cartimg.png';
 import profileImg from '../assets/Profile.png';
 import '../style/headerstyle.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Header = () => {
+const Header = ({ userRole }) => {
   return (
     <Container fluid className="bg-secondary py-2" style={{ top: 0, left: 0, right: 0, zIndex: 1030 }}>
       <Row className="align-items-center justify-content-between">
         <Col xs="auto">
-          <Image src={logoImg} className="img-fluid" style={{ maxHeight: '40px' }} />
+          <Link to="/">
+            <Image src={logoImg} className="img-fluid" style={{ maxHeight: '40px' }} />
+          </Link>
         </Col>
         <Col xs>
           <Form className="d-flex justify-content-center" role="search">
@@ -21,12 +22,18 @@ const Header = () => {
           </Form>
         </Col>
         <Col xs="auto" className="d-flex justify-content-end">
-          <Link to={'/cartpage'}>
-            <Image src={cartImg} className="img-fluid" style={{ maxHeight: '40px', marginRight: '15px' }} />
+          <Link to="/cartpage">
+            <Image src={cartImg} className="img-fluid cart-image" style={{ maxHeight: '40px', marginRight: '15px' }} />
           </Link>
-          <Link to={'/login'}>
-            <Button variant="outline-light">Login</Button>
-          </Link>
+          {userRole ? (
+            <Link to="/profile">
+              <Image src={profileImg} className="img-fluid profile-image" style={{ maxHeight: '40px' }} />
+            </Link>
+          ) : (
+            <Link to="/login">
+              <Button variant="outline-light">Login</Button>
+            </Link>
+          )}
         </Col>
       </Row>
     </Container>

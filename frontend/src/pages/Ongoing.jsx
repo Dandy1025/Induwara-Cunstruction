@@ -133,7 +133,6 @@ function Ongoing() {
       `}
       </style>
       <div>
-        <Header />
         <Navbar />
 
 

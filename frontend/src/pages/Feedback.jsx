@@ -6,7 +6,6 @@ import FeedbackContent from '../component/FeedbackContent'
 function Feedback() {
   return (
     <div>
-        <Header/>
         <Navbar/>
         <FeedbackContent/>
         <Footer/>

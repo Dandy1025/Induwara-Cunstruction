@@ -7,7 +7,6 @@ import Footer from '../component/footer';
 function Cartpage() {
   return (
     <div>
-        <Header/>
         <Navbar/>
         <Content/>
         <Footer/>

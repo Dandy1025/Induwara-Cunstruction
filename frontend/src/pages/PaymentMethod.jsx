@@ -7,7 +7,6 @@ import Footer from '../component/footer';
 function PaymentMethod() {
   return (
     <div>
-        <Header/>
         <Navbar/>
         <PaymentContent/>
         <Footer/>

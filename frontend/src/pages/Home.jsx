@@ -3,13 +3,13 @@ import Image from 'react-bootstrap/Image';
 import a from '../assets/Construction.jpg';
 import Footer from '../component/footer';
 import '../style/Homestyle.css';
-import Header from '../component/header';
 import Navbar from '../component/navbar';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   return (
     <>
-      <div><Header/></div>
+      {/* <div><Header/></div> */}
       <div><Navbar/></div>
       <Image src={a} fluid style={{ width: "1920px", height: "612px" }} />
       <div style={{ fontFamily: "poppins", textAlign: "center" }}>
@@ -22,6 +22,7 @@ export default function Home() {
           <br />
           <h2>Build your Dreams Here!</h2>
           {/* Button with full opacity */}
+          <Link to={'/postproject'}>
           <button type="button" className="button-hover-effect" style={{ 
             marginTop: "20px", 
             fontSize: "20px", 
@@ -33,6 +34,7 @@ export default function Home() {
           }}>
             Get Started
           </button>
+          </Link>
         </fieldset>
       </div>
       <div><Footer/></div>

@@ -108,7 +108,6 @@ function Category() {
       </style>
 
       <div>
-        <Header />
         <Navbar />
         <div className="background">
           <div className="content-wrapper">

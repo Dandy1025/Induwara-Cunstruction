@@ -1,27 +1,23 @@
 import React from 'react';
-import Header from '../component/header';
 import Navbar from '../component/navbar';
 import Footer from '../component/footer';
+import backgroundImage from '../assets/Construction.jpg'; // Import the image
 
 const App = () => {
   return (
    <div>
-  <Header/>
-  <Navbar/>
-    
-    <div style={styles.container}>
-        
-      <div style={styles.row}>
-        <div style={styles.projectDetails}>Project details</div>
-        <div style={styles.column}>
-          <div style={styles.ordersRents}>Orders & rents</div>
-          <div style={styles.employees}>Employees</div>
+      <Navbar/>
+      <div style={{ ...styles.container, backgroundImage: `url(${backgroundImage})` }}> {/* Apply the imported image */}
+        <div style={styles.row}>
+          <div style={styles.projectDetails}>Project details</div>
+          <div style={styles.column}>
+            <div style={styles.ordersRents}>Orders & rents</div>
+            <div style={styles.employees}>Employees</div>
+          </div>
         </div>
       </div>
+      <Footer/>
     </div>
-    <Footer/>
-    </div>
-   
   );
 }
 
@@ -31,9 +27,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundImage: 'url(/path/to/your/image.png)', // replace with your image path
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
   },
   row: {
     display: 'flex',
@@ -80,7 +74,6 @@ const styles = {
     fontSize: '24px',
     fontWeight: 'bold',
     borderRadius: '15px',
-  
   }
 };
 

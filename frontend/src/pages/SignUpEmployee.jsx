@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Image, Container, Form, Button, Row, Col } from 'react-bootstrap';
-import Header from '../component/header';
+import { Link } from 'react-router-dom';
 import Navbar from '../component/navbar';
 import Footer from '../component/footer';
-import '../style/SignUpEmployee.css';
 import backgroundImage from '../assets/Construction.jpg';
 
 export default function SignUpEmployee() {
-  // State for form fields
   const [fullName, setFullName] = useState('');
   const [nic, setNic] = useState('');
   const [email, setEmail] = useState('');
@@ -19,31 +17,23 @@ export default function SignUpEmployee() {
   const [profession, setProfession] = useState('');
   const [experience, setExperience] = useState('');
 
-  // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Check if passwords match
     if (password !== confirmPassword) {
       alert('Passwords do not match.');
       return;
     }
-    // New password validation pattern
     const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d{3,})(?=.*[\W_]).{8,}$/;
-    // Check if the password meets the new requirements
     if (!passwordPattern.test(password)) {
       alert('Password does not meet the requirements.');
       return;
     }
-    // Here you would handle the sign-up logic, possibly validating the input
-    // and sending a request to your backend server
   };
 
-  // Function to format the full name
   const formatName = (name) => {
     return name.split(' ').map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(' ');
   };
 
-  // Function to restrict invalid characters for Full Name
   const handleFullNameChange = (e) => {
     const value = e.target.value;
     if (/^[A-Za-z\s]*$/.test(value)) {
@@ -51,7 +41,6 @@ export default function SignUpEmployee() {
     }
   };
 
-  // Function to restrict invalid characters for Address
   const handleAddressChange = (e) => {
     const value = e.target.value;
     if (/^[A-Za-z0-9\s.,/"]*$/.test(value)) {
@@ -59,24 +48,17 @@ export default function SignUpEmployee() {
     }
   };
 
-  // Function to restrict invalid characters for NIC
   const handleNicChange = (e) => {
     const value = e.target.value;
-    // Allow typing if the first 9 characters are digits
     if (/^[0-9]{0,9}$/.test(value)) {
       setNic(value);
-    }
-    // If the 10th character is V/v, restrict the length to 10
-    else if (/^[0-9]{9}[Vv]$/.test(value) && value.length === 10) {
+    } else if (/^[0-9]{9}[Vv]$/.test(value) && value.length === 10) {
       setNic(value.toUpperCase());
-    }
-    // If the 10th character is a digit, allow up to 12 characters
-    else if (/^[0-9]{10}[0-9]{0,2}$/.test(value) && value.length <= 12) {
+    } else if (/^[0-9]{10}[0-9]{0,2}$/.test(value) && value.length <= 12) {
       setNic(value);
     }
   };
 
-  // Function to restrict invalid characters for Contact Number
   const handleContactNumberChange = (e) => {
     const value = e.target.value;
     if (/^0[0-9]*$/.test(value)) {
@@ -86,7 +68,6 @@ export default function SignUpEmployee() {
 
   return (
     <>
-      <Header />
       <Navbar />
       <div style={{ position: 'relative', width: '100%' }}>
         <Image src={backgroundImage} fluid style={{ width: '100%', height: 'auto' }} />
@@ -105,7 +86,7 @@ export default function SignUpEmployee() {
               }}>
                 <h3 style={{ color: 'orange' }}>Guidelines for SignUp</h3>
                 <br />
-                <p style={{ color: 'white' }}>
+                <div style={{ color: 'white' }}>
                   <ul>
                     <li>Full Name: letter only (first Character of every word must be Capital)</li><br />
                     <li>NIC: numeric characters only (for 12 character NICs), 9 numeric characters and V (end letter) only (for 10 character NICs)</li><br />
@@ -114,7 +95,7 @@ export default function SignUpEmployee() {
                     <li>Contact number: numerics only (maximum characters 10 / start with "0")</li><br />
                     <li>Physical address: letters and Numbers with special characters ( . , "" / ) only</li>
                   </ul>
-                </p>
+                </div>
               </Container>
             </Col>
 
@@ -180,10 +161,11 @@ export default function SignUpEmployee() {
                   <Form.Group className="mb-3" controlId="formBasicExperience">
                     <Form.Control type="text" placeholder="Experience" value={experience} onChange={(e) => setExperience(e.target.value)} required />
                   </Form.Group>
-
-                  <Button variant="primary" type="submit" style={{ width: '100%', backgroundColor: 'orange' }}>
-                    Sign Up
-                  </Button>
+                  <Link to='/login'>
+                    <Button variant="primary" type="submit" style={{ width: '100%', backgroundColor: 'orange' }}>
+                      Sign Up
+                    </Button>
+                  </Link>
                 </Form>
               </Container>
             </Col>

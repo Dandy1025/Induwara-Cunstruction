@@ -7,7 +7,6 @@ import backgroundImage from '../assets/Construction.jpg';
 import '../style/SignUpSupplier.css';
 
 export default function SignUpSupplier() {
-  // State for form fields
   const [fullName, setFullName] = useState('');
   const [nic, setNic] = useState('');
   const [email, setEmail] = useState('');
@@ -19,31 +18,55 @@ export default function SignUpSupplier() {
   const [storeBrand, setStoreBrand] = useState('');
   const [businessLicenseNumber, setBusinessLicenseNumber] = useState('');
 
-  // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Check if passwords match
     if (password !== confirmPassword) {
       alert('Passwords do not match.');
       return;
     }
-    // New password validation pattern
     const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d{3,})(?=.*[\W_]).{8,}$/;
-    // Check if the password meets the new requirements
     if (!passwordPattern.test(password)) {
       alert('Password does not meet the requirements.');
       return;
     }
-    // Here you would handle the sign-up logic, possibly validating the input
-    // and sending a request to your backend server
+
+    const data = {
+      userType: 'supplier',
+      fullName,
+      nic,
+      username,
+      email,
+      password,
+      contactNumber,
+      address,
+      storeBrand,
+      businessLicenseNumber
+    };
+
+    fetch('http://localhost:3000/api/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message) {
+        alert(data.message);
+      } else {
+        alert('Registration failed');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   };
 
-  // Function to format the full name
   const formatName = (name) => {
     return name.split(' ').map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(' ');
   };
 
-  // Function to restrict invalid characters for Full Name
   const handleFullNameChange = (e) => {
     const value = e.target.value;
     if (/^[A-Za-z\s]*$/.test(value)) {
@@ -51,7 +74,6 @@ export default function SignUpSupplier() {
     }
   };
 
-  // Function to restrict invalid characters for Address
   const handleAddressChange = (e) => {
     const value = e.target.value;
     if (/^[A-Za-z0-9\s.,/"]*$/.test(value)) {
@@ -59,24 +81,17 @@ export default function SignUpSupplier() {
     }
   };
 
-  // Function to restrict invalid characters for NIC
   const handleNicChange = (e) => {
     const value = e.target.value;
-    // Allow typing if the first 9 characters are digits
     if (/^[0-9]{0,9}$/.test(value)) {
       setNic(value);
-    }
-    // If the 10th character is V/v, restrict the length to 10
-    else if (/^[0-9]{9}[Vv]$/.test(value) && value.length === 10) {
+    } else if (/^[0-9]{9}[Vv]$/.test(value) && value.length === 10) {
       setNic(value.toUpperCase());
-    }
-    // If the 10th character is a digit, allow up to 12 characters
-    else if (/^[0-9]{10}[0-9]{0,2}$/.test(value) && value.length <= 12) {
+    } else if (/^[0-9]{10}[0-9]{0,2}$/.test(value) && value.length <= 12) {
       setNic(value);
     }
   };
 
-  // Function to restrict invalid characters for Contact Number
   const handleContactNumberChange = (e) => {
     const value = e.target.value;
     if (/^0[0-9]*$/.test(value)) {
@@ -84,7 +99,6 @@ export default function SignUpSupplier() {
     }
   };
 
-  // Function to restrict invalid characters and format for Store Brand
   const handleStoreBrandChange = (e) => {
     const value = e.target.value;
     if (/^[A-Za-z\s]*$/.test(value)) {
@@ -92,7 +106,6 @@ export default function SignUpSupplier() {
     }
   };
 
-  // Function to restrict invalid characters for Business License Number
   const handleBusinessLicenseNumberChange = (e) => {
     const value = e.target.value.toUpperCase();
     if (/^[A-Z0-9]*$/.test(value)) {
@@ -102,23 +115,13 @@ export default function SignUpSupplier() {
 
   return (
     <>
-      <Header />
       <Navbar />
       <div style={{ position: 'relative', width: '100%' }}>
         <Image src={backgroundImage} fluid style={{ width: '100%', height: 'auto' }} />
         <Container fluid style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Row className="justify-content-center w-100">
             <Col xs={12} md={6} lg={4} className="d-flex justify-content-center mb-3">
-              <Container className="guideline-container" style={{
-                fontFamily: 'poppins',
-                backgroundColor: 'rgba(128, 128, 128, 0.9)',
-                padding: '20px',
-                borderRadius: '8px',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                maxWidth: '400px',
-                maxHeight: '65vh',
-                overflowY: 'scroll',
-              }}>
+              <Container className="guideline-container" style={{ fontFamily: 'poppins', backgroundColor: 'rgba(128, 128, 128, 0.9)', padding: '20px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', maxWidth: '400px', maxHeight: '65vh', overflowY: 'scroll' }}>
                 <h3 style={{ color: 'orange' }}>Guidelines for SignUp</h3>
                 <br />
                 <p style={{ color: 'white' }}>
@@ -137,16 +140,7 @@ export default function SignUpSupplier() {
             </Col>
 
             <Col xs={12} md={6} lg={4} className="d-flex justify-content-center mb-3">
-              <Container className="signup-form-container" style={{
-                fontFamily: 'poppins',
-                backgroundColor: 'rgba(128, 128, 128, 0.9)',
-                padding: '20px',
-                borderRadius: '8px',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                maxWidth: '400px',
-                maxHeight: '65vh',
-                overflowY: 'scroll',
-              }}>
+              <Container className="signup-form-container" style={{ fontFamily: 'poppins', backgroundColor: 'rgba(128, 128, 128, 0.9)', padding: '20px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', maxWidth: '400px', maxHeight: '65vh', overflowY: 'scroll' }}>
                 <Form onSubmit={handleSubmit}>
                   <h3 style={{ color: 'white', textAlign: 'center', backgroundColor: 'orange', borderRadius: '8px' }}>Sign Up</h3>
                   <br />

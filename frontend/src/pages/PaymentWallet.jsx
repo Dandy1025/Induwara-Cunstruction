@@ -8,9 +8,6 @@ import Footer from '../component/footer';
 function PaymentWallet() {
   return (
     <div>
-      <Header />
-      <br />
-      <br />
       <Navbar />
       <ContentPw/>
       <Footer/>

@@ -135,10 +135,7 @@ function Complete() {
 
       </style>
       <div>
-        <Header />
         <Navbar />
-
-
         <div className="mainone">
           <div className="para">Completed Projects</div>
           <div className="row">

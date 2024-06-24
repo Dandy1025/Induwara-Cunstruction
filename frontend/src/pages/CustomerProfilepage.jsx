@@ -1,178 +1,165 @@
 import React, { useState } from 'react';
-import { Image, Container, Form, Button, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Form, Modal } from 'react-bootstrap';
+import Footer from '../component/footer';
 import Header from '../component/header';
 import Navbar from '../component/navbar';
-import Footer from '../component/footer';9
 import backgroundImage from '../assets/Construction.jpg';
-import '../style/SignUpCustomer.css';
+import profileImage from '../assets/Profile.png';
 
-export default function Customerprofilepage() {
-  // State for form fields
-  const [fullName, setFullName] = useState('');
-  const [nic, setNic] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-  const [address, setAddress] = useState('');
-  const [username, setUsername] = useState('');
-
-  // Function to handle form submission
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Check if passwords match
-    if (password !== confirmPassword) {
-      alert('Passwords do not match.');
-      return;
-    }
-    // New password validation pattern
-    const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d{3,})(?=.*[\W_]).{8,}$/;
-    // Check if the password meets the new requirements
-    if (!passwordPattern.test(password)) {
-      alert('Password does not meet the requirements.');
-      return;
-    }
-    // Here you would handle the sign-up logic, possibly validating the input
-    // and sending a request to your backend server
+export default function CustomerProfilePage() {
+  // Initial profile data
+  const initialProfileData = {
+    fullName: "John Doe",
+    nic: "123456789V",
+    email: "john.doe@example.com",
+    contactNumber: "0771234567",
+    address: "123, Main Street, City",
+    username: "johndoe",
   };
 
-  // Function to format the full name
-  const formatName = (name) => {
-    return name.split(' ').map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(' ');
+  // State to hold profile data
+  const [profileData, setProfileData] = useState(initialProfileData);
+
+  // State to track if a field is editable
+  const [editableField, setEditableField] = useState(null);
+
+  // State for modal visibility, field to remove, and modal message
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalAction, setModalAction] = useState(null);
+
+  // Handle input change
+  const handleChange = (field, value) => {
+    setProfileData({
+      ...profileData,
+      [field]: value,
+    });
   };
 
-  // Function to restrict invalid characters for Full Name
-  const handleFullNameChange = (e) => {
-    const value = e.target.value;
-    if (/^[A-Za-z\s]*$/.test(value)) {
-      setFullName(formatName(value));
-    }
+  // Handle edit button click
+  const handleEdit = (field) => {
+    setEditableField(field);
   };
 
-  // Function to restrict invalid characters for Address
-  const handleAddressChange = (e) => {
-    const value = e.target.value;
-    if (/^[A-Za-z0-9\s.,/"]*$/.test(value)) {
-      setAddress(value);
-    }
+  // Handle remove button click
+  const handleRemove = (field) => {
+    setModalMessage(`Are you sure you want to remove this ${field}?`);
+    setModalAction(() => () => {
+      handleChange(field, ""); // Clear the field
+      setShowModal(false);
+    });
+    setShowModal(true);
   };
 
-  // Function to restrict invalid characters for NIC
-  const handleNicChange = (e) => {
-    const value = e.target.value;
-    // Allow typing if the first 9 characters are digits
-    if (/^[0-9]{0,9}$/.test(value)) {
-      setNic(value);
-    }
-    // If the 10th character is V/v, restrict the length to 10
-    else if (/^[0-9]{9}[Vv]$/.test(value) && value.length === 10) {
-      setNic(value.toUpperCase());
-    }
-    // If the 10th character is a digit, allow up to 12 characters
-    else if (/^[0-9]{10}[0-9]{0,2}$/.test(value) && value.length <= 12) {
-      setNic(value);
-    }
+  // Handle update profile
+  const handleUpdateProfile = () => {
+    setModalMessage("Save changes to your profile?");
+    setModalAction(() => () => {
+      alert("Profile updated successfully!");
+      setShowModal(false);
+    });
+    setShowModal(true);
   };
 
-  // Function to restrict invalid characters for Contact Number
-  const handleContactNumberChange = (e) => {
-    const value = e.target.value;
-    if (/^0[0-9]*$/.test(value)) {
-      setContactNumber(value);
-    }
+  // Handle reset changes
+  const handleResetChanges = () => {
+    setModalMessage("Undo changes?");
+    setModalAction(() => () => {
+      setProfileData(initialProfileData); // Reset to initial data
+      setShowModal(false);
+    });
+    setShowModal(true);
+  };
+
+  // Handle delete account
+  const handleDeleteAccount = () => {
+    setModalMessage("Remove the account from the site permanently?");
+    setModalAction(() => () => {
+      alert("Account deleted successfully!");
+      setShowModal(false);
+      // Add additional logic here for account deletion
+    });
+    setShowModal(true);
   };
 
   return (
     <>
-      <Header />
       <Navbar />
       <div style={{ position: 'relative', width: '100%' }}>
         <Image src={backgroundImage} fluid style={{ width: '100%', height: 'auto' }} />
-        <Container fluid style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Row className="justify-content-center w-100">
-            <Col xs={12} md={6} lg={4} className="d-flex justify-content-center mb-3">
-              <Container className="guideline-container" style={{
-                fontFamily: 'poppins',
-                backgroundColor: 'rgba(128, 128, 128, 0.9)',
-                padding: '20px',
-                borderRadius: '8px',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                maxWidth: '400px',
-                maxHeight: '65vh',
-                overflowY: 'scroll',
-              }}>
-                <h3 style={{ color: 'orange' }}>Guidelines for SignUp</h3>
-                <br />
-                <p style={{ color: 'white' }}>
-                  <ul>
-                    <li>Full Name: letter only (first Character of every word must be Capital)</li><br />
-                    <li>NIC: numeric characters only (for 12 character NICs), 9 numeric characters and V (end letter) only (for 10 character NICs)</li><br />
-                    <li>Email: must be a valid email address.</li><br />
-                    <li>Password: must contain at least 8 characters (Uppercase letter, lowercase letter, 3 numerical characters and a special character / first character should be an Uppercase letter)</li><br />
-                    <li>Contact number: numerics only (maximum characters 10 / start with "0")</li><br />
-                    <li>Physical address: letters and Numbers with special characters ( . , "" / ) only</li>
-                  </ul>
-                </p>
-              </Container>
-            </Col>
-
-            <Col xs={12} md={6} lg={4} className="d-flex justify-content-center mb-3">
-              <Container className="signup-form-container" style={{
-                fontFamily: 'poppins',
-                backgroundColor: 'rgba(128, 128, 128, 0.9)',
-                padding: '20px',
-                borderRadius: '8px',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                maxWidth: '400px',
-                maxHeight: '65vh',
-                overflowY: 'scroll',
-              }}>
-                <Form onSubmit={handleSubmit}>
-                  <h3 style={{ color: 'white', textAlign: 'center', backgroundColor: 'orange', borderRadius: '8px' }}>Sign Up</h3>
-                  <br />
-                  <h5 style={{ color: 'white' }}>Read the SignUp guideline to avoid inconvenience.</h5>
-                  <Form.Group className="mb-3" controlId="formBasicFullName">
-                    <Form.Control type="text" placeholder="Full Name" value={fullName} onChange={handleFullNameChange} required/>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formBasicNic">
-                    <Form.Control type="text" placeholder="NIC" value={nic} onChange={handleNicChange} maxLength="12" required/>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formBasicUsername">
-                    <Form.Control type="text" pattern="[A-Za-z0-9_]+" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required/>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
-                    <Form.Control type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required/>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formBasicContactNumber">
-                    <Form.Control type="tel" placeholder="Contact Number" value={contactNumber} onChange={handleContactNumberChange} maxLength="10" required/>
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formBasicAddress">
-                    <Form.Control as="textarea" rows={3} placeholder="Physical Address" value={address} onChange={handleAddressChange} required/>
-                  </Form.Group>
-
-                  <Button variant="primary" type="submit" style={{ width: '100%', backgroundColor: 'orange' }}>
-                    Sign Up
-                  </Button>
-                </Form>
-              </Container>
-            </Col>
-          </Row>
+        <Container fluid style={{ 
+          position: 'absolute', 
+          top: '15%', 
+          left: 0, 
+          right: 0, 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'flex-start', 
+          paddingTop: '20px',
+          overflowY: 'auto', 
+          maxHeight: '75vh'
+        }}>
+          <Container style={{
+            fontFamily: 'Poppins, sans-serif',
+            backgroundColor: 'white',
+            color: 'black',
+            padding: '20px',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            width: '80%',
+            maxWidth: '800px',
+            overflowY: 'auto'
+          }}>
+            <Row>
+              <Col xs={3}>
+                <Image src={profileImage} roundedCircle style={{ width: '100px', height: '100px', marginBottom: '20px' }} />
+              </Col>
+              <Col xs={9} className="d-flex align-items-center">
+                <h2 style={{ color: 'orange' }}>Profile Information</h2>
+              </Col>
+            </Row>
+            <Form>
+              {['fullName', 'nic', 'email', 'contactNumber', 'address', 'username'].map((field) => (
+                <Form.Group key={field} controlId={`form${field}`} className="mb-3">
+                  <Row className="align-items-center">
+                    <Col xs={6} className="d-flex align-items-center">
+                      <Form.Label className="me-2" style={{ width: '40%' }}>{field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={profileData[field]}
+                        onChange={(e) => handleChange(field, e.target.value)}
+                        readOnly={editableField !== field}
+                        style={{ maxWidth: '60%', flex: '1' }}
+                      />
+                    </Col>
+                    <Col xs={6} className="d-flex justify-content-end">
+                      <Button variant="primary" className="me-2" onClick={() => handleEdit(field)}>Edit</Button>
+                      <Button variant="danger" onClick={() => handleRemove(field)}>Remove</Button>
+                    </Col>
+                  </Row>
+                </Form.Group>
+              ))}
+              <div className="d-flex justify-content-between mt-4">
+                <Button variant="success" onClick={handleUpdateProfile}>Update Profile</Button>
+                <Button variant="warning" onClick={handleResetChanges}>Reset Changes</Button>
+                <Button variant="danger" onClick={handleDeleteAccount}>Delete Account</Button>
+              </div>
+            </Form>
+          </Container>
         </Container>
       </div>
       <Footer />
+
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>Cancel</Button>
+          <Button variant="danger" onClick={modalAction}>Confirm</Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

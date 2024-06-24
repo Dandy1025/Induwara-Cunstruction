@@ -7,7 +7,6 @@ import EmployeeContent from '../component/EmployeeContent'
 function Employee() {
   return (
     <div>
-        <Header/>
         <Navbar/>
         <EmployeeContent/>
         <Footer/>

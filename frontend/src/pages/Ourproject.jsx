@@ -214,7 +214,6 @@ function Ourproject() {
       `}
       </style>
       <div>
-        <Header />
         <Navbar />
         <div className="main">
           <div className="our">

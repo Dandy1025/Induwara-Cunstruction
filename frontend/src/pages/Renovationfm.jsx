@@ -3,7 +3,7 @@ import Header from '../component/header'
 import Navbar from '../component/navbar'
 import Footer from '../component/footer';
 
-function Postproject() {
+function Renovation() {
   return (
     <div>
       <style>{`
@@ -76,7 +76,6 @@ background-color:darkgrey;
         `}
       </style>
       <div>
-        <Header />
         <Navbar />
 
         <div className="interface">
@@ -111,4 +110,4 @@ background-color:darkgrey;
   )
 }
 
-export default Postproject
+export default Renovation

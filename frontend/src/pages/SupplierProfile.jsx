@@ -87,7 +87,6 @@ export default function SupplierProfilepage() {
 
   return (
     <>
-      <Header />
       <Navbar />
       <div style={{ position: 'relative', width: '100%' }}>
         <Image src={backgroundImage} fluid style={{ width: '100%', height: 'auto' }} />

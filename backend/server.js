@@ -1,22 +1,6 @@
-const express = require('express');
-const mysql = require('mysql');
-const cors  = require('cors');
+const app = require('./src/app');
+const PORT = process.env.PORT || 3000;
 
-const app = express();
-
-app.use(cors());
-
-const db = mysql.createConnection({
-    host:"localhost",
-    user:"root",
-    password:"",
-    database:"induwara_contruction_db"
-})
-
-app.get("/", (req, res) => {
-    res.json("Hello World!");
-})
-
-app.listen(3000, () => {
-    console.log("listening");
-})
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+});

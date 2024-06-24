@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Image, Container, Form, Button } from 'react-bootstrap';
 import Header from '../component/header';
 import Navbar from '../component/navbar';
@@ -9,6 +9,8 @@ import backgroundImage from '../assets/Construction.jpg';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage login status
+  const navigate = useNavigate(); // useNavigate hook from react-router-dom
 
   // Regex for password validation
   const passwordValidationRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*\d.*\d)(?=.*[\W_]).{8,}$/;
@@ -17,20 +19,40 @@ export default function Login() {
 
   const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // Check if the password is valid before sending to the server
     if (!passwordValidationRegex.test(password)) {
       alert('Password does not meet the requirements.');
       return;
     }
-    // Send the email and password to the server
-    // For example, using fetch or axios to POST to your PHP script
+
+    try {
+      const response = await fetch('http://localhost:3000/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Simulate successful login
+        setIsLoggedIn(true);
+        navigate('/'); // Redirect to the homepage
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('Login failed. Please try again.');
+    }
   };
 
   return (
     <>
-      <Header />
       <Navbar />
       <div style={{ position: 'relative' }}>
         <Image src={backgroundImage} fluid style={{ width: '100%', height: '613px' }} />

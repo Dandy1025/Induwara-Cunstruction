@@ -139,7 +139,7 @@ function Employee() {
               </div>
             ))}
           </div>
-          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style={{height:"60px", marginTop:"100px"}}>
+          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" style={{height:"60px", marginTop:"100px", color:'black'}}>
             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
             <span className="visually-hidden">Previous</span>
           </button>

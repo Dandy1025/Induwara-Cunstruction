@@ -7,7 +7,6 @@ import NotificationContent from '../component/NotificationContent'
 function Notification() {
   return (
     <div>
-        <Header/>
         <Navbar/>
         <NotificationContent/>
         <Footer/>
