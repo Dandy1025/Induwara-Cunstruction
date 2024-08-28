@@ -1,5 +1,3 @@
-console.log('Rendering Homepage');
-
 import React from "react";
 import NavBarComponent from "./NavBarComponent";
 import { Box, Grid } from "@mui/material";
@@ -9,19 +7,18 @@ import { Outlet } from "react-router-dom";
 export default function RootComponent() {
   return (
     <>
+      {/* Navigation Bar */}
       <NavBarComponent />
-      <Box
-        sx={
-          {
-            // bgcolor: "#DEE3E9",
-            // height: 899,
-          }
-        }
-      >
+
+      {/* Main Content */}
+      <Box>
         <Grid container spacing={0}>
+          {/* Sidebar */}
           <Grid item md={2} sm={0}>
             <SideBarComponent />
           </Grid>
+
+          {/* Main Content Area */}
           <Grid item md={10}>
             <Outlet />
           </Grid>

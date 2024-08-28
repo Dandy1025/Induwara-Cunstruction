@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-const Header = ({ title }) => {
+const AdminHeader = ({ title }) => {
   return (
     <Box sx={{ backgroundColor: 'primary.main', color: 'white', py: 3, textAlign: 'center' }}>
       <Typography variant="h4">{title}</Typography>
@@ -9,4 +9,4 @@ const Header = ({ title }) => {
   );
 };
 
-export default Header;
+export default AdminHeader;

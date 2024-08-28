@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import "../style/paymentContent.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Button from 'react-bootstrap/Button';
 
 function PaymentContent() {
   const [formData, setFormData] = useState({
@@ -70,16 +68,13 @@ function PaymentContent() {
             </Row>
             <Row className="mb-3">
               <InputGroup className="mb-3 mx-auto" style={{ maxWidth: "750px" }}>
-                <InputGroup.Text id="inputGroup-sizing-default">
-                  Card Number :
-                </InputGroup.Text>
+                <InputGroup.Text>Card Number:</InputGroup.Text>
                 <Form.Control
                   name="cardNumber"
                   value={formData.cardNumber}
                   onChange={handleChange}
-                  aria-label="Default"
-                  aria-describedby="inputGroup-sizing-default"
-                  className="input-width1"
+                  aria-label="Card Number"
+                  className="input-width"
                   isInvalid={!!errors.cardNumber}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -90,15 +85,12 @@ function PaymentContent() {
             <Row className="mb-3">
               <Col xs={12} md={6} className="mb-3">
                 <InputGroup className="mb-3 mx-auto" style={{ maxWidth: "250px" }}>
-                  <InputGroup.Text id="inputGroup-sizing-default">
-                    MM/YY :
-                  </InputGroup.Text>
+                  <InputGroup.Text>MM/YY:</InputGroup.Text>
                   <Form.Control
                     name="expiry"
                     value={formData.expiry}
                     onChange={handleChange}
-                    aria-label="Default"
-                    aria-describedby="inputGroup-sizing-default"
+                    aria-label="Expiry Date"
                     className="input-width"
                     isInvalid={!!errors.expiry}
                   />
@@ -109,15 +101,12 @@ function PaymentContent() {
               </Col>
               <Col xs={12} md={6} className="mb-3">
                 <InputGroup className="mb-3 mx-auto" style={{ maxWidth: "250px" }}>
-                  <InputGroup.Text id="inputGroup-sizing-default">
-                    CVC :
-                  </InputGroup.Text>
+                  <InputGroup.Text>CVC:</InputGroup.Text>
                   <Form.Control
                     name="cvc"
                     value={formData.cvc}
                     onChange={handleChange}
-                    aria-label="Default"
-                    aria-describedby="inputGroup-sizing-default"
+                    aria-label="CVC"
                     className="input-width"
                     isInvalid={!!errors.cvc}
                   />
@@ -129,16 +118,13 @@ function PaymentContent() {
             </Row>
             <Row className="mb-3">
               <InputGroup className="mb-3 mx-auto" style={{ maxWidth: "750px" }}>
-                <InputGroup.Text id="inputGroup-sizing-default">
-                  Name :
-                </InputGroup.Text>
+                <InputGroup.Text>Name:</InputGroup.Text>
                 <Form.Control
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  aria-label="Default"
-                  aria-describedby="inputGroup-sizing-default"
-                  className="input-width1"
+                  aria-label="Name"
+                  className="input-width"
                   isInvalid={!!errors.name}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -148,16 +134,13 @@ function PaymentContent() {
             </Row>
             <Row className="mb-3">
               <InputGroup className="mb-3 mx-auto" style={{ maxWidth: "750px" }}>
-                <InputGroup.Text id="inputGroup-sizing-default">
-                  Address :
-                </InputGroup.Text>
+                <InputGroup.Text>Address:</InputGroup.Text>
                 <Form.Control
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
-                  aria-label="Default"
-                  aria-describedby="inputGroup-sizing-default"
-                  className="input-width1"
+                  aria-label="Address"
+                  className="input-width"
                   isInvalid={!!errors.address}
                 />
                 <Form.Control.Feedback type="invalid">
@@ -173,7 +156,6 @@ function PaymentContent() {
                   name="saveCard"
                   checked={formData.saveCard}
                   onChange={handleChange}
-                  className="text-center"
                 />
               </Form.Group>
             </Row>

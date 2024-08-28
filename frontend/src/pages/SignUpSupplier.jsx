@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Image, Container, Form, Button, Row, Col } from 'react-bootstrap';
-import Header from '../component/header';
 import Navbar from '../component/navbar';
 import Footer from '../component/footer';
 import backgroundImage from '../assets/Construction.jpg';
@@ -76,7 +75,7 @@ export default function SignUpSupplier() {
 
   const handleAddressChange = (e) => {
     const value = e.target.value;
-    if (/^[A-Za-z0-9\s.,/"]*$/.test(value)) {
+    if (/^[A-Za-z0-9\s.,/"']*$/i.test(value)) {
       setAddress(value);
     }
   };
@@ -124,7 +123,7 @@ export default function SignUpSupplier() {
               <Container className="guideline-container" style={{ fontFamily: 'poppins', backgroundColor: 'rgba(128, 128, 128, 0.9)', padding: '20px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', maxWidth: '400px', maxHeight: '65vh', overflowY: 'scroll' }}>
                 <h3 style={{ color: 'orange' }}>Guidelines for SignUp</h3>
                 <br />
-                <p style={{ color: 'white' }}>
+                <div style={{ color: 'white' }}>
                   <ul>
                     <li>Full Name: letter only (first Character of every word must be Capital)</li><br />
                     <li>NIC: numeric characters only (for 12 character NICs), 9 numeric characters and V (end letter) only (for 10 character NICs)</li><br />
@@ -135,7 +134,7 @@ export default function SignUpSupplier() {
                     <li>Store Brand: letters only (first letter of every word must be Capital)</li><br />
                     <li>Business License Number: uppercase letters and numerical characters only</li>
                   </ul>
-                </p>
+                </div>
               </Container>
             </Col>
 

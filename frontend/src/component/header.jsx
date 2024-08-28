@@ -7,6 +7,19 @@ import profileImg from '../assets/Profile.png';
 import '../style/headerstyle.css';
 
 const Header = ({ userRole }) => {
+  const getProfileLink = () => {
+    switch (userRole) {
+      case 'customer':
+        return '/customer-profile';
+      case 'supplier':
+        return '/supplier-profile';
+      case 'employee':
+        return '/employee-profile';
+      default:
+        return '/login';
+    }
+  };
+  
   return (
     <Container fluid className="bg-secondary py-2" style={{ top: 0, left: 0, right: 0, zIndex: 1030 }}>
       <Row className="align-items-center justify-content-between">
@@ -16,7 +29,7 @@ const Header = ({ userRole }) => {
           </Link>
         </Col>
         <Col xs>
-          <Form className="d-flex justify-content-center" role="search">
+          <Form className="d-flex justify-content-center" role="search" onSubmit={(e) => e.preventDefault()}>
             <Form.Control type="search" placeholder="Search" aria-label="Search" className="me-2" />
             <Button variant="outline-dark" type="submit" style={{ backgroundColor: '#D9D9D9' }}>Search</Button>
           </Form>
@@ -26,7 +39,7 @@ const Header = ({ userRole }) => {
             <Image src={cartImg} className="img-fluid cart-image" style={{ maxHeight: '40px', marginRight: '15px' }} />
           </Link>
           {userRole ? (
-            <Link to="/profile">
+            <Link to={getProfileLink()}>
               <Image src={profileImg} className="img-fluid profile-image" style={{ maxHeight: '40px' }} />
             </Link>
           ) : (
@@ -41,3 +54,4 @@ const Header = ({ userRole }) => {
 }
 
 export default Header;
+

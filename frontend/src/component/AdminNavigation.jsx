@@ -2,7 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const Navigation = () => {
+const AdminNavigation = () => {
   return (
     <AppBar position="static">
       <Toolbar>
@@ -15,4 +15,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default AdminNavigation;

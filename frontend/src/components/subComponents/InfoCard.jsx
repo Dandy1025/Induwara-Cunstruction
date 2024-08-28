@@ -1,9 +1,10 @@
+import React from "react";
 import { Card, Box, CardContent, Typography } from "@mui/material";
+import { Link } from "react-router-dom"; // Import Link from React Router
 
-export default function InfoCard({ card }) {
+export default function InfoCard({ card, to }) {
   return (
-    //do the routing here
-    <>
+    <Link to={to} style={{ textDecoration: "none" }}>
       <Card elevation={6} sx={{ mx: card.mx, my: card.my, borderRadius: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center" }} pl={1}>
           <Box
@@ -40,6 +41,6 @@ export default function InfoCard({ card }) {
           </CardContent>
         </Box>
       </Card>
-    </>
+    </Link>
   );
 }

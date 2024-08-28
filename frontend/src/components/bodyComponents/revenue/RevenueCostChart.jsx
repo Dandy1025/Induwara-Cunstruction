@@ -3,10 +3,10 @@ import ApexCharts from "react-apexcharts";
 import { Box } from "@mui/material";
 
 export default function RevenueCostChart() {
-  const [categoryData, SalesByCategory] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
-    SalesByCategory([
+    setCategoryData([
       {
         name: "Revenue",
         type: "column",
@@ -18,14 +18,11 @@ export default function RevenueCostChart() {
         data: [341, 350, 460, 370, 400, 140, 150, 120, 220, 700, 300, 600],
       },
     ]);
-
-    return () => {
-      SalesByCategory([]);
-    };
   }, []);
 
+  // Calculate totals for each month
   let totalArray = [];
-  const total = categoryData.forEach((value) => {
+  categoryData.forEach((value) => {
     const data = value.data;
     if (totalArray.length === 0) totalArray = [...data];
     else {
@@ -38,7 +35,7 @@ export default function RevenueCostChart() {
     chart: {
       id: "basic-bar",
       type: "bar",
-      stacked: false, //one on top of another
+      stacked: false,
     },
     dataLabels: {
       enabled: false,
@@ -62,29 +59,20 @@ export default function RevenueCostChart() {
     },
     xaxis: {
       categories: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aut",
-        "Spt",
-        "Oct",
-        "Nov",
-        "Dec",
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
       ],
     },
     tooltip: {
       fixed: {
         enabled: true,
-        position: "topLeft", // topRight, topLeft, bottomRight, bottomLeft
+        position: "topLeft",
         offsetY: 30,
         offsetX: 60,
       },
     },
   };
+
   return (
     <Box
       sx={{

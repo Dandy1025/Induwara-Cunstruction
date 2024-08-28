@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-const Footer = () => {
+const AdminFooter = () => {
   return (
     <Box sx={{ p: 3, textAlign: 'center', backgroundColor: '#f1f1f1', mt: 4 }}>
       <Typography variant="body2" color="textSecondary">
@@ -11,4 +11,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default AdminFooter;

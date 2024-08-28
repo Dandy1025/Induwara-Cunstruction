@@ -1,10 +1,11 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import Header from '../component/header';
 import Navbar from '../component/navbar';
 import logo from '../assets/bd.jpeg';
 import logoa from '../assets/dba.jpeg';
 import Footer from '../component/footer';
+import backgroundImage from '../assets/Construction.jpg';
+
 function Category() {
   return (
     <div>
@@ -23,12 +24,12 @@ function Category() {
             left: 0;
             height: 100%;
             width: 100%;
-            background-image: url('frontend/src/assets/Construction.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            opacity: 0.6;
-            z-index: -1;
+            // background-image: url('../assets/Construction.jpg');
+            // background-size: cover;
+            // background-position: center;
+            // background-repeat: no-repeat;
+            // opacity: 0.6;
+            // z-index: -1;
           }
 
           .col1 {
@@ -52,7 +53,7 @@ function Category() {
             margin-top: 50px;
             margin-bottom: 200px; /* Increase bottom margin to prevent overlap with footer */
             margin-left: 350px;
-          }
+            background-image: url('../assets/Construction.jpg');
 
           /* Responsive adjustments */
           @media (max-width: 1200px) {
@@ -109,8 +110,8 @@ function Category() {
 
       <div>
         <Navbar />
-        <div className="background">
-          <div className="content-wrapper">
+        <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh' }}>
+          <div className="content-wrapper ">
             <div className="row">
               <div className="col1">
                 <Card className="bg" style={{ height: '260px' }}>
@@ -130,7 +131,7 @@ function Category() {
                     <img src={logoa} alt="New Building" className="image" />
                     <Card.ImgOverlay className="d-flex justify-content-center align-items-center">
                       <div className="pp">
-                        <Card.Link href="/new-building" style={{ color: "white" }}>New Building</Card.Link>
+                        <Card.Link href="/postproject" style={{ color: "white" }}>New Building</Card.Link>
                       </div>
                     </Card.ImgOverlay>
                   </a>

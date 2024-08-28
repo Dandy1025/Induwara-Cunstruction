@@ -1,45 +1,74 @@
-import { Box, Paper, Typography } from "@mui/material";
-import React from "react";
-import Percentage from "./Percentage";
+import React, { Component } from "react";
+import RevenueCard from "./RevenueCard";
+import { Box, Grid } from "@mui/material";
+import RevenueCostChart from "./RevenueCostChart";
+import BestSelledProductChart from "./BestSelledProductChart";
+import BestSelledProductChartBar from "./BestSelledProductChartBar";
 
-export default function RevenueCard(props) {
-  const { number, percentage, upOrDown, color, title, subTitle, isMoney } =
-    props.card;
+export default class Revenue extends Component {
+  render() {
+    const revenuCards = [
+      {
+        isMoney: true,
+        number: "23 000",
+        percentage: 55,
+        upOrDown: "up",
+        color: "green",
+        title: "Total Sales This Year",
+        subTitle: "vs prev year",
+      },
+      {
+        isMoney: true,
+        number: "3500",
+        percentage: 70,
+        upOrDown: "up",
+        color: "green",
+        title: "Revenue This Year",
+        subTitle: "vs prev year",
+      },
+      {
+        isMoney: true,
+        number: "2000",
+        percentage: 12,
+        upOrDown: "down",
+        color: "red",
+        title: "Cost This Year",
+        subTitle: "vs prev year",
+      },
+      {
+        isMoney: true,
+        number: "98 000",
+        percentage: undefined,
+        title: "Revenue Total",
+        subTitle: "vs prev year",
+      },
+    ];
 
-  return (
-    <Paper elevation={3} sx={{ py: 5, px: 4, borderRadius: 2 }}>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box>
-            <Typography fontWeight={"bold"} variant="h6">
-              {isMoney ? "LKR" : ""} {number}
-            </Typography>
-          </Box>
-          <Box>
-            {percentage && (
-              <Percentage
-                percentage={percentage}
-                upOrDown={upOrDown}
-                color={color}
-              />
-            )}
-          </Box>
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box>
-            <Typography fontWeight={"light"} variant="h6">
-              {title}
-            </Typography>
-          </Box>
-          <Box>
-            {percentage && (
-              <Typography fontWeight={"light"} variant="caption" color={color}>
-                {subTitle}
-              </Typography>
-            )}
-          </Box>
-        </Box>
+    return (
+      <Box sx={{ p: 3, mx: 3 }}>
+        <Grid container spacing={4}>
+          {revenuCards.map((card, index) => (
+            <Grid item key={index} xs={12} md={3}>
+              <Box m={4}>
+                <RevenueCard card={card} />
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+        <Grid container spacing={4} sx={{ mt: 4 }}>
+          <Grid item xs={12}>
+            <RevenueCostChart />
+          </Grid>
+        </Grid>
+        <Grid container spacing={4} sx={{ mt: 4 }}>
+          <Grid item xs={12} md={6}>
+            <BestSelledProductChart />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <BestSelledProductChartBar />
+          </Grid>
+        </Grid>
       </Box>
-    </Paper>
-  );
+    );
+  }
 }

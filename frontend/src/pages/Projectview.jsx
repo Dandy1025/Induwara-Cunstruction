@@ -3,11 +3,11 @@ import Navbar from '../component/navbar';
 import Footer from '../component/footer';
 import backgroundImage from '../assets/Construction.jpg'; // Import the image
 
-const App = () => {
+const ProjectView = () => {
   return (
-   <div>
-      <Navbar/>
-      <div style={{ ...styles.container, backgroundImage: `url(${backgroundImage})` }}> {/* Apply the imported image */}
+    <div>
+      <Navbar />
+      <div style={{ ...styles.container, backgroundImage: `url(${backgroundImage})` }}>
         <div style={styles.row}>
           <div style={styles.projectDetails}>Project details</div>
           <div style={styles.column}>
@@ -16,7 +16,7 @@ const App = () => {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
@@ -77,4 +77,4 @@ const styles = {
   }
 };
 
-export default App;
+export default ProjectView;

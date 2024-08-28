@@ -28,6 +28,38 @@ export default function SignUpEmployee() {
       alert('Password does not meet the requirements.');
       return;
     }
+
+    const data = {
+      userType: 'employee',
+      fullName,
+      nic,
+      username,
+      email,
+      password,
+      contactNumber,
+      address,
+      profession,
+      experience
+    };
+
+    fetch('http://localhost:3000/api/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message) {
+        alert(data.message);
+      } else {
+        alert('Registration failed');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   };
 
   const formatName = (name) => {
@@ -161,11 +193,9 @@ export default function SignUpEmployee() {
                   <Form.Group className="mb-3" controlId="formBasicExperience">
                     <Form.Control type="text" placeholder="Experience" value={experience} onChange={(e) => setExperience(e.target.value)} required />
                   </Form.Group>
-                  <Link to='/login'>
-                    <Button variant="primary" type="submit" style={{ width: '100%', backgroundColor: 'orange' }}>
-                      Sign Up
-                    </Button>
-                  </Link>
+                  <Button variant="primary" type="submit" style={{ width: '100%', backgroundColor: 'orange' }}>
+                    Sign Up
+                  </Button>
                 </Form>
               </Container>
             </Col>

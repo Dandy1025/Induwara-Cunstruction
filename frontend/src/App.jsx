@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import Inter from './static/fonts/Inter.ttf';
 import Header from './component/header';
-import AdminLayout from './components/bodyComponents/adminLayout'; 
-import Homepage from './pages/Home';
+import AdminLayout from './components/adminLayout';
 import Cartpage from './pages/Cartpage';
 import PaymentMethod from './pages/PaymentMethod';
 import PaymentWallet from './pages/PaymentWallet';
@@ -27,7 +26,7 @@ import Complete from './pages/Complete';
 import Projectview from './pages/Projectview';
 import Renovation from './pages/Renovationfm';
 import Category from './pages/Category';
-import CustomerProfilePage from './pages/CustomerProfilepage'; 
+import CustomerProfilePage from './pages/CustomerProfilepage';
 import SupplierProfilePage from './pages/SupplierProfile';
 import EmployeeProfilePage from './pages/EmployeeProfile';
 import Home from './components/bodyComponents/Home/Home';
@@ -39,8 +38,10 @@ import Report from './components/bodyComponents/report/Report';
 import Setting from './components/bodyComponents/Settings/Setting';
 import Order from './components/bodyComponents/order/Order';
 import Shedulepage from './pages/ShedulePage';
+import { getDecodedToken } from './utils/authUtils';
+import Homepage from './pages/Homepage';
+import InventoryPage from './pages/InventoryPage';
 
-// Define your theme
 const theme = createTheme({
   spacing: 4,
   palette: {
@@ -66,7 +67,15 @@ const theme = createTheme({
 });
 
 function App() {
+
   const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    const decodedToken = getDecodedToken();
+    if (decodedToken) {
+      setUserRole(decodedToken.role);
+    }
+  }, []);
 
   const handleLogin = (role) => {
     setUserRole(role);
@@ -76,9 +85,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Header userRole={userRole} /> {/* Ensure userRole is defined */}
+        <Header userRole={userRole} />
         <Routes>
-          {/* Public routes */}
           <Route path="/" element={<Homepage />} />
           <Route path="/cartpage" element={<Cartpage />} />
           <Route path="/paymentmethod" element={<PaymentMethod />} />
@@ -103,22 +111,22 @@ function App() {
           <Route path="/projectview" element={<Projectview />} />
           <Route path="/renovation" element={<Renovation />} />
           <Route path="/shedulepage" element={<Shedulepage />} />
+          <Route path="/inventory" element={<InventoryPage />} />
 
-          {/* Profile routes based on user role */}
-          {userRole === 'customer' && <Route path="/profile" element={<CustomerProfilePage />} />}
-          {userRole === 'employee' && <Route path="/profile" element={<EmployeeProfilePage />} />}
-          {userRole === 'supplier' && <Route path="/profile" element={<SupplierProfilePage />} />}
 
-          {/* Admin routes */}
-          <Route path="/Admin" element={<AdminLayout />}>
-            <Route path="/Admin" element={<Home />} />
-            <Route path="/Admin/inventory" element={<Inventory />} />
-            <Route path="/Admin/orders" element={<Order />} />
-            <Route path="/Admin/customers" element={<Customer />} />
-            <Route path="/Admin/revenue" element={<Revenue />} />
-            <Route path="/Admin/growth" element={<Growth />} />
-            <Route path="/Admin/reports" element={<Report />} />
-            <Route path="/Admin/settings" element={<Setting isAdmin={true} />} />
+          {userRole === 'customer' && <Route path="/customer-profile" element={<CustomerProfilePage />} />}
+          {userRole === 'employee' && <Route path="/employee-profile" element={<EmployeeProfilePage />} />}
+          {userRole === 'supplier' && <Route path="/supplier-profile" element={<SupplierProfilePage />} />}
+
+          <Route path="/Admin/*" element={<AdminLayout />}>
+            <Route path="home" element={<Home />} />
+            <Route path="inventory" element={<Inventory />} />
+            <Route path="orders" element={<Order />} />
+            <Route path="customers" element={<Customer />} />
+            <Route path="revenue" element={<Revenue />} />
+            <Route path="growth" element={<Growth />} />
+            <Route path="reports" element={<Report />} />
+            <Route path="settings" element={<Setting isAdmin={true} />} />
           </Route>
         </Routes>
       </Router>

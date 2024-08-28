@@ -1,16 +1,16 @@
 import React from 'react'
-import Navbar from '../component/AdminNavigation'
-import Header from '../component/AdminHeader'
+import AdminNavbar from '../component/AdminNavigation'
+import AdminHeader from '../component/AdminHeader'
 import AdminReviewContent from '../component/AdminReviewContent'
-import Footer from '../component/AdminFooter'
+import AdminFooter from '../component/AdminFooter'
 
 function AdminReview() {
   return (
     <div>
-        <Header title="Admin Panel"/>
-        <Navbar/>
+        <AdminHeader title="Admin Panel"/>
+        <AdminNavbar/>
         <AdminReviewContent/>
-        <Footer/>
+        <AdminFooter/>
     </div>
   )
 }

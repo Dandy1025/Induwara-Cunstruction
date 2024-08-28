@@ -1,55 +1,57 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Image, Container, Form, Button } from 'react-bootstrap';
-import Header from '../component/header';
 import Navbar from '../component/navbar';
 import Footer from '../component/footer';
 import backgroundImage from '../assets/Construction.jpg';
+import { storeToken, getDecodedToken } from '../utils/authUtils'; // Ensure this path is correct
+import axios from 'axios';
 
-export default function Login() {
+export default function Login({ onLogin }) {
+  const [userType, setUserType] = useState('customer');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage login status
-  const navigate = useNavigate(); // useNavigate hook from react-router-dom
+  const navigate = useNavigate();
+  
 
-  // Regex for password validation
   const passwordValidationRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*\d.*\d)(?=.*[\W_]).{8,}$/;
 
   const handleEmailChange = (e) => setEmail(e.target.value);
-
   const handlePasswordChange = (e) => setPassword(e.target.value);
+  const handleUserTypeChange = (e) => setUserType(e.target.value);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    // Check if the password is valid before sending to the server
+
     if (!passwordValidationRegex.test(password)) {
-      alert('Password does not meet the requirements.');
-      return;
+        alert('Password does not meet the requirements.');
+        return;
     }
+    console.log(email);
 
-    try {
-      const response = await fetch('http://localhost:3000/api/users/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+    axios.post('http://localhost:3000/api/users/login', {
+        userType,
+        email,
+        password,
+    })
+    .then((response) => {
+        console.log(response.data); // Log the response data from the backend
 
-      if (response.ok) {
-        const data = await response.json();
-        // Simulate successful login
-        setIsLoggedIn(true);
-        navigate('/'); // Redirect to the homepage
-      } else {
-        const errorData = await response.json();
-        alert(errorData.message);
-      }
-    } catch (error) {
-      console.error('Error during login:', error);
-      alert('Login failed. Please try again.');
-    }
-  };
+        // If the request was successful
+        if (response.status === 200) {
+            storeToken(response.data.token);
+            const decodedToken = getDecodedToken();
+            onLogin(decodedToken.role);
+            navigate('/');
+        } else {
+            alert('Login failed. Please check your credentials.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error during login:', error);
+        alert('Login failed. Please try again.');
+    });
+};
 
   return (
     <>
@@ -70,6 +72,14 @@ export default function Login() {
         }}>
           <Form onSubmit={handleSubmit}>
             <h2 style={{ color: 'white' }}><b>Login</b></h2><br />
+            <Form.Group className="mb-3" controlId="formUserType">
+              <Form.Label style={{ color: 'white' }}>User Type</Form.Label>
+              <Form.Control as="select" value={userType} onChange={handleUserTypeChange}>
+                <option value="customer">Customer</option>
+                <option value="employee">Employee</option>
+                <option value="supplier">Supplier</option>
+              </Form.Control>
+            </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control type="email" placeholder="Enter email" value={email} onChange={handleEmailChange} required />
             </Form.Group>
