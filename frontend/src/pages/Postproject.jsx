@@ -1,110 +1,182 @@
-import React from 'react'
-import Header from '../component/header'
-import Navbar from '../component/navbar'
+import React, { useState } from 'react';
+import { Container, Form, Button, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../component/navbar';
 import Footer from '../component/footer';
+import axios from 'axios';
+
 function Postproject() {
+  const [formData, setFormData] = useState({
+    project_name: '',
+    description: '',
+    start_date: '',
+    end_date: '',
+    budget: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        navigate('/login');
+        return;
+      }
+
+      await axios.post('http://localhost:3000/api/projects', formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      setSuccess('Project posted successfully!');
+      setFormData({
+        project_name: '',
+        description: '',
+        start_date: '',
+        end_date: '',
+        budget: ''
+      });
+
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+
+    } catch (error) {
+      console.error('Error posting project:', error);
+      if (error.response?.status === 401) {
+        navigate('/login');
+      } else {
+        setError(error.response?.data?.error || 'Failed to post project');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCancel = () => {
+    navigate('/');
+  };
+
   return (
     <div>
-      <style>{`
-      .interface {
-    display: flex;
-    flex-direction: column;
-    width: 700px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color:#ccc;
-   height: 500px;
-   margin-top: 20px;
-   margin-bottom: 20px;
-  }
-  
-  .label {
-    margin-top: 10px;
-    font-weight: bold;
-  }
-  
-  .input[type="text"],
-  .input[type="date"]
- {
-    margin-top: 5px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
- 
-  }
-  
-  .button {
-    margin-top: 15px;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .button:first-of-type {
-    background-color: #4CAF50;
-    color: white;
-    width: 40%;
-  }
-  
-  .button:last-of-type {
-    background-color: #f44336;
-    color: white;
-    width: 40%;
+      <Navbar />
+      <Container className="my-5">
+        <div style={{
+          maxWidth: '700px',
+          margin: '0 auto',
+          padding: '30px',
+          border: '1px solid #ccc',
+          borderRadius: '10px',
+          backgroundColor: '#f8f9fa',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+        }}>
+          <h2 className="text-center mb-4" style={{ color: '#FF7D29' }}>
+            Post New Project
+          </h2>
 
-  }
-  
-  .button:hover {
-    opacity: 0.8;
-    
-  }
-  
-  
-.main{
-background-color:darkgrey;
+          {error && <Alert variant="danger">{error}</Alert>}
+          {success && <Alert variant="success">{success}</Alert>}
 
-}
-      `}</style>
-      <div>
-        <Navbar />
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label><strong>Project Name</strong></Form.Label>
+              <Form.Control
+                type="text"
+                name="project_name"
+                value={formData.project_name}
+                onChange={handleChange}
+                placeholder="Enter project name"
+                required
+              />
+            </Form.Group>
 
-        <div className="interface">
+            <Form.Group className="mb-3">
+              <Form.Label><strong>Description</strong></Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={4}
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="House/new building/renovation/location details..."
+                required
+              />
+            </Form.Group>
 
-          <label htmlFor="projectName">Project Name</label>
-          <input type="text" id="projectName" placeholder="Enter project name" />
+            <Form.Group className="mb-3">
+              <Form.Label><strong>Start Date</strong></Form.Label>
+              <Form.Control
+                type="date"
+                name="start_date"
+                value={formData.start_date}
+                onChange={handleChange}
+              />
+            </Form.Group>
 
-          <label htmlFor="startDate">Description</label>
-          <textarea id="description" name="description" rows="4" cols="50" placeholder="House/new building/renovation/location">
+            <Form.Group className="mb-3">
+              <Form.Label><strong>End Date</strong></Form.Label>
+              <Form.Control
+                type="date"
+                name="end_date"
+                value={formData.end_date}
+                onChange={handleChange}
+              />
+            </Form.Group>
 
-          </textarea>
+            <Form.Group className="mb-3">
+              <Form.Label><strong>Budget (Optional)</strong></Form.Label>
+              <Form.Control
+                type="number"
+                name="budget"
+                value={formData.budget}
+                onChange={handleChange}
+                placeholder="Enter estimated budget in LKR"
+                min="0"
+                step="0.01"
+              />
+            </Form.Group>
 
-          <label htmlFor="startDate">Start date</label>
-          <input type="date" id="startDate" />
-
-          <label htmlFor="endDate">End date</label>
-          <input type="date" id="endDate" />
-
-          <label htmlFor="customerDetails">Customer details</label>
-          <textarea id="description" name="details" placeholder="client name/address
-       " >
-
-          </textarea><br /><br />
-
-
-          <div className="btn">
-            <button> Post</button>
-            <button>Cancel</button>
-          </div>
+            <div className="d-flex justify-content-between mt-4">
+              <Button 
+                variant="success" 
+                type="submit" 
+                disabled={loading}
+                style={{ width: '45%' }}
+              >
+                {loading ? 'Posting...' : 'Post Project'}
+              </Button>
+              <Button 
+                variant="danger" 
+                type="button" 
+                onClick={handleCancel}
+                style={{ width: '45%' }}
+              >
+                Cancel
+              </Button>
+            </div>
+          </Form>
         </div>
-        <Footer />
-      </div>
+      </Container>
+      <Footer />
     </div>
-
-  )
+  );
 }
 
-export default Postproject
+export default Postproject;

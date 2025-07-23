@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Image, Button, Form, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Form, Modal, Alert } from 'react-bootstrap';
 import Footer from '../component/footer';
 import Navbar from '../component/navbar';
 import backgroundImage from '../assets/Construction.jpg';
@@ -15,6 +15,7 @@ export default function CustomerProfilePage() {
   const [modalAction, setModalAction] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const navigate = useNavigate();
 
@@ -23,8 +24,10 @@ export default function CustomerProfilePage() {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
-          throw new Error('No token found');
+          navigate('/login');
+          return;
         }
+
         const response = await axios.get('http://localhost:3000/api/profile', {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -33,17 +36,29 @@ export default function CustomerProfilePage() {
         });
 
         console.log('Profile data fetched:', response.data);
-        setProfileData(response.data);
+        setProfileData({
+          fullName: response.data.fullname || '',
+          nic: response.data.nic || '',
+          email: response.data.useremail || '',
+          contactNumber: response.data.contactnum || '',
+          address: response.data.useraddress || '',
+          username: response.data.username || ''
+        });
       } catch (error) {
         console.error('Error fetching profile data:', error);
-        setError('Failed to fetch profile data.');
+        if (error.response?.status === 401) {
+          localStorage.removeItem('token');
+          navigate('/login');
+        } else {
+          setError('Failed to fetch profile data.');
+        }
       } finally {
         setLoading(false);
       }
     };
 
     fetchProfileData();
-  }, []);
+  }, [navigate]);
 
   const handleChange = (field, value) => {
     setProfileData({
@@ -66,27 +81,32 @@ export default function CustomerProfilePage() {
   };
 
   const handleUpdateProfile = async () => {
-    setModalMessage("Save changes to your profile?");
-    setModalAction(async () => {
-      try {
-        await axios.put('/api/profile', profileData, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          }
-        });
-        alert("Profile updated successfully!");
-        setShowModal(false);
-      } catch (error) {
-        alert("Failed to update profile.");
-      }
-    });
-    setShowModal(true);
+    try {
+      const token = localStorage.getItem('token');
+      await axios.put('http://localhost:3000/api/profile', {
+        fullname: profileData.fullName,
+        contactnum: profileData.contactNumber,
+        useraddress: profileData.address
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      
+      setSuccess("Profile updated successfully!");
+      setEditableField(null);
+      setTimeout(() => setSuccess(null), 3000);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      setError("Failed to update profile.");
+      setTimeout(() => setError(null), 3000);
+    }
   };
 
   const handleResetChanges = () => {
     setModalMessage("Undo changes?");
     setModalAction(() => () => {
-      setProfileData(profileData);
+      window.location.reload();
       setShowModal(false);
     });
     setShowModal(true);
@@ -95,9 +115,9 @@ export default function CustomerProfilePage() {
   const handleDeleteAccount = () => {
     setModalMessage("Remove the account from the site permanently?");
     setModalAction(() => () => {
-      alert("Account deleted successfully!");
+      // Implement account deletion logic here
+      alert("Account deletion feature will be implemented soon!");
       setShowModal(false);
-      navigate('/');
     });
     setShowModal(true);
   };
@@ -106,15 +126,25 @@ export default function CustomerProfilePage() {
     setModalMessage("Are you sure you want to logout?");
     setModalAction(() => () => {
       localStorage.removeItem('token');
-      alert("Logged out successfully!");
       setShowModal(false);
-      window.location.replace('/');
+      navigate('/');
     });
     setShowModal(true);
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return (
+    <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+      <div className="spinner-border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  );
+
+  if (error && !profileData) return (
+    <div className="alert alert-danger text-center" role="alert">
+      {error}
+    </div>
+  );
 
   return (
     <>
@@ -144,6 +174,9 @@ export default function CustomerProfilePage() {
             maxWidth: '800px',
             overflowY: 'auto'
           }}>
+            {success && <Alert variant="success">{success}</Alert>}
+            {error && <Alert variant="danger">{error}</Alert>}
+            
             <Row>
               <Col xs={3}>
                 <Image src={profileImage} roundedCircle style={{ width: '100px', height: '100px', marginBottom: '20px' }} />
@@ -152,8 +185,9 @@ export default function CustomerProfilePage() {
                 <h2 style={{ color: 'orange' }}>Profile Information</h2>
               </Col>
             </Row>
+            
             <Form>
-              {['fullName', 'nic', 'email', 'contactNumber', 'address', 'username'].map((field) => (
+              {profileData && Object.entries(profileData).map(([field, value]) => (
                 <Form.Group key={field} controlId={`form${field}`} className="mb-3">
                   <Row className="align-items-center">
                     <Col xs={6} className="d-flex align-items-center">
@@ -161,27 +195,43 @@ export default function CustomerProfilePage() {
                         {field.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}:
                       </Form.Label>
                       <Form.Control
-                        type="text"
-                        value={profileData[field] || ''}
+                        type={field === 'email' ? 'email' : 'text'}
+                        value={value || ''}
                         onChange={(e) => handleChange(field, e.target.value)}
-                        readOnly={editableField !== field}
+                        readOnly={editableField !== field || field === 'email' || field === 'nic' || field === 'username'}
                         style={{ maxWidth: '60%', flex: '1' }}
                       />
                     </Col>
-                    <Col xs={6} className="d-flex justify-content-end">
-                      <Button variant="primary" className="me-2" onClick={() => handleEdit(field)}>Edit</Button>
-                      <Button variant="danger" onClick={() => handleRemove(field)}>Remove</Button>
-                    </Col>
+                    {field !== 'email' && field !== 'nic' && field !== 'username' && (
+                      <Col xs={6} className="d-flex justify-content-end">
+                        <Button variant="primary" className="me-2" onClick={() => handleEdit(field)}>
+                          Edit
+                        </Button>
+                        <Button variant="danger" onClick={() => handleRemove(field)}>
+                          Remove
+                        </Button>
+                      </Col>
+                    )}
                   </Row>
                 </Form.Group>
               ))}
+              
               <div className="d-flex justify-content-between mt-4">
-                <Button variant="success" onClick={handleUpdateProfile}>Update Profile</Button>
-                <Button variant="warning" onClick={handleResetChanges}>Reset Changes</Button>
-                <Button variant="danger" onClick={handleDeleteAccount}>Delete Account</Button>
+                <Button variant="success" onClick={handleUpdateProfile}>
+                  Update Profile
+                </Button>
+                <Button variant="warning" onClick={handleResetChanges}>
+                  Reset Changes
+                </Button>
+                <Button variant="danger" onClick={handleDeleteAccount}>
+                  Delete Account
+                </Button>
               </div>
+              
               <div className="d-flex justify-content-center mt-4">
-                <Button variant="info" onClick={handleLogout}>Logout</Button>
+                <Button variant="info" onClick={handleLogout}>
+                  Logout
+                </Button>
               </div>
             </Form>
           </Container>
@@ -195,12 +245,16 @@ export default function CustomerProfilePage() {
         </Modal.Header>
         <Modal.Body>{modalMessage}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>Cancel</Button>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
           <Button variant="danger" onClick={() => {
             if (modalAction) {
               modalAction();
             }
-          }}>Confirm</Button>
+          }}>
+            Confirm
+          </Button>
         </Modal.Footer>
       </Modal>
     </>

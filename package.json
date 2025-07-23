@@ -1,0 +1,26 @@
+{
+  "name": "induwara-construction-management",
+  "version": "1.0.0",
+  "description": "Online Construction Management System",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend && npm run dev",
+    "install-deps": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && npm start"
+  },
+  "keywords": [
+    "construction",
+    "management",
+    "react",
+    "nodejs",
+    "mysql"
+  ],
+  "author": "Induwara Construction Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
